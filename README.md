@@ -1,21 +1,8 @@
-# gshop
+#网易严选
 
-> A Vue.js project
+##第一天
+	完成整体路由,首页静态页面,
+	使用vuex搭建路由,stylus,预处理器写样式
+	移动端适配,不是太清楚,不能灵活使用,样式几乎忘光,全程复制已有样式,flex布局记不住
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
