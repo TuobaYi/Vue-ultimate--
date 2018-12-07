@@ -1,34 +1,42 @@
 <template>
     <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
+      <div class="swiper-slide" v-for="(focus,index) in focusList" :key="index">
         <a href="javascript:">
           <div class="food_container">
-            <img  src="./images/image1.jpg">
+            <img  :src="focus.picUrl">
           </div>
         </a>
       </div>
     </div>
     <!-- 如果需要分页器 -->
     <div class="swiper-pagination"></div>
-
-    <!-- 如果需要导航按钮 -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-
-    <!-- 如果需要滚动条 -->
-    <div class="swiper-scrollbar"></div>
   </div>
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
+  import Swiper from 'swiper'
   export default {
     name: 'SlideImage',
+    computed:{
+      focusList(){
+       return this.$store.state.focusList
+      }
+    },
+    watch:{
+      focusList(){
+        this.$nextTick(()=>{
+          new Swiper('.swiper-container',{ //滑动效果 img
+            loop: true, // 循环模式选项
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          })
+        })
+      }
+    },
     mounted(){
-      // new BScroll('.slide_wrap',{
-      //
-      // })
+     this.$store.dispatch('getfocusList') //拿数据 img地址
     }
   }
 </script>
@@ -37,22 +45,16 @@
     .swiper-container
       width 100%
       height:4rem
+      overflow hidden
       .swiper-wrapper
         width 100%
         height 100%
+        display flex
+        flex-flow row nowrap
         .swiper-slide
-          display flex
-          justify-content center
-          align-items flex-start
-          flex-wrap wrap
-          .food_container
-            display block
+          flex-shrink 0
+          width 7.5rem
+          height 3.7rem
+          img
             width 100%
-            text-align center
-            padding-bottom 10px
-            font-size 0
-            img
-              width 100%
-              height 100%
-
 </style>

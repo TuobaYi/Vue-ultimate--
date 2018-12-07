@@ -11,29 +11,8 @@
         </div>
         <div class="msite_nav">
           <div class="list_tab">
-          <span class="tab_active"> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active active"> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
-          </span>
-            <span class="tab_active "> <!--选项卡 active 选中-->
-            <span>推荐</span>
+          <span class="tab_active" v-for="(nav,index) in msiteNav" :key="index" @click="checkedNav=index" :class="{active:index===checkedNav}"> <!--选项卡active active 选中-->
+            <span>{{nav.name}}</span>
           </span>
           </div>
         </div>
@@ -66,9 +45,9 @@
           </div>
         </div>
         <div class="shop_list">
-          <div class="shop_item" v-for="(item,index) in shops" :key="index">
-            <div><img src="http://yanxuan.nosdn.127.net/98b6a6fc32f1fea861934816729e2cf5.png" alt=""></div>
-            <span>居家</span>
+          <div class="shop_item" v-for="(item,index) in kingKong" :key="index">
+            <div><img :src="item.picUrl" alt=""></div>
+            <span>{{item.text}}</span>
           </div>
         </div>
         <split/>
@@ -91,6 +70,66 @@
             <img src="//yanxuan.nosdn.127.net/d074d02fb86bff9bfbf4fa3010d1e1e6.png" alt="">
           </div>
         </div>
+        <split/>
+        <div class="direct_supply">
+          <div class="text_top">
+            <span>品牌制造商直供</span>
+            <i>更多 ></i>
+          </div>
+          <div class="top_wor">
+            <div class="left_shop">
+              <p class="top_p">海外制造商</p>
+              <p class="next_p"> 9.9元起 <span>上新</span></p>
+            </div>
+            <div class="right_shop">
+              <p class="top_p">海外制造商</p>
+              <p class="next_p">9.9元起 <span>上新</span></p>
+            </div>
+          </div>
+          <div class="top_wor">
+            <div class="left_shop">
+              <p class="top_p">海外制造商</p>
+              <p class="next_p"> 9.9元起 <span>上新</span></p>
+            </div>
+            <div class="right_shop">
+              <p class="top_p">海外制造商</p>
+              <p class="next_p">9.9元起 <span>上新</span></p>
+            </div>
+          </div>
+        </div>
+        <split/>
+
+        <div class=" singles_sales">
+          <p>类目热销榜</p>
+          <div class="shop_item_list">
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+          </div>
+          <div class="shop_item_top">
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+            <div class="shop_item">
+              <p class="text">服装榜</p>
+              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 </template>
@@ -98,20 +137,34 @@
 <script>
   import SlideImage from '../../components/SlideImage/SlideImage'
   import Split from '../../components/Split/Split' //分隔 组件的组件
-import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll'
+
   export default {
     name: 'Msite',
     data(){
       return{
+        checkedNav:0,//选中的导航
         shops:[1,2,3,4,5,
                 1,1,1,1,1]
       }
     },
+    computed:{
+      msiteNav(){
+        return this.$store.state.MsiteNav
+      },
+      kingKong(){
+        return this.$store.state.kingKongList
+      }
+    },
     mounted(){
-      let scroll = new BScroll('.msite_nav',{
-        scrollX: true,
-        click: true
-      })
+      this.$store.dispatch('getMsiteNav')//上面导航
+      this.$store.dispatch('getKingkongList')//轮播图 下面 小商品
+       this.$nextTick(() => {
+         new BScroll('.msite_nav',{
+           scrollX: true,
+           click: true
+         })
+       })
     },
     components:{
       SlideImage,
@@ -179,8 +232,6 @@ import BScroll from 'better-scroll'
           box-sizing: border-box
           font-size: .24rem
           margin-top: .1rem
-
-
       .msite_nav
         width:6.3rem
         height .8rem
@@ -203,8 +254,10 @@ import BScroll from 'better-scroll'
             &.active:after
               content: ' '
               position: absolute
-              left  .08rem
-              bottom: 0
+              left  0
+              right 0
+              bottom: -.1rem
+              margin 0 auto
               width: .87rem
               height: .03333rem
               background-color: #b4282d
@@ -247,17 +300,16 @@ import BScroll from 'better-scroll'
           float: left
           text-align: center
           margin-right .3rem
+          font-size .24rem
           img
             width: 100%
             height: 100%
-
-
-
       .freshmanModule
         width 100%
         box-sizing:border-box
         padding-left .2rem
         padding-right .2rem
+        padding-bottom .4rem
         text-align: center
         background-color: #fff
         .text
@@ -309,7 +361,107 @@ import BScroll from 'better-scroll'
             width 2.28rem
             height 2.2899rem
 
-
+      .direct_supply
+        clearFix()
+        width 100%
+        padding .3rem .3rem
+        box-sizing:border-box
+        .text_top
+          width 100%
+          margin-bottom .3rem
+          box-sizing:border-box
+          padding-left .2rem
+          i
+            float right
+        .top_wor
+          width 100%
+        .below_wor
+          width 100%
+        .left_shop
+          float left
+          padding-top .2rem
+          width 3.35rem
+          height 2.3rem
+          margin-bottom .2rem
+          background-color rgb(244, 244, 244)
+          background-image url(http://yanxuan.nosdn.127.net/802ff06dd3ef161db046eeb8db6cb4be.jpg?imageView&thumbnail=343y260&enlarge=1)
+          background-size: 100% 100%
+          p
+            text-align center
+          .top_p
+            font-size .27rem
+            margin-bottom .1rem
+          .next_p
+            font-size .24rem
+            color #7F7F7F
+            span
+              background-color: rgb(203, 182, 147)
+              border-radius .1rem
+        .right_shop
+          padding-top .2rem
+          float right
+          width 3.335rem
+          height 2.3rem
+          margin-bottom .2rem
+          background-color rgb(244, 244, 244)
+          background-image url(http://yanxuan.nosdn.127.net/802ff06dd3ef161db046eeb8db6cb4be.jpg?imageView&thumbnail=343y260&enlarge=1)
+          background-size: 100% 100%
+          p
+            text-align center
+          .top_p
+            font-size .27rem
+            margin-bottom .1rem
+          .next_p
+            font-size .24rem
+            color #7F7F7F
+      .singles_sales
+        padding .2rem .2rem
+        width 100%
+        box-sizing: border-box
+        .shop_item_list
+          width 100%
+          display flex
+          justify-content space-between
+          box-sizing:border-box
+          .shop_item
+            position relative
+            display flex
+            height 2rem
+            margin: 0 .13333rem .13333rem 0
+            border-radius: .05333rem
+            box-sizing: border-box
+            background: #F9F3E4
+            .text
+              align-items center
+              line-height 1.8rem
+              margin-left .1rem
+              &.text::before
+                content: ''
+                position: absolute
+                left: .25rem
+                bottom: 0.8rem
+                width: .64rem
+                height: .05333rem
+                background: #333
+            img
+              width 70%
+        .shop_item_top
+          width 100%
+          display flex
+          justify-content space-between
+          box-sizing:border-box
+          .shop_item
+            position relative
+            height 2rem
+            margin: 0 .133rem .133rem 0
+            border-radius: .053rem
+            box-sizing: border-box
+            background: #F9F3E4
+            text-align center
+            .text
+              text-align center
+            img
+              width 70%
 
 
 </style>

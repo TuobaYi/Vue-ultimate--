@@ -53,3 +53,17 @@ clearFix()
     content ''
     display block
     clear both
+
+
+&.active
+  color: #b4282d
+&.active:after
+  content: ' '
+  position: absolute
+  left  0
+  right 0
+  bottom: -.1rem
+  margin 0 auto
+  width: .87rem
+  height: .03333rem
+  background-color: #b4282d
