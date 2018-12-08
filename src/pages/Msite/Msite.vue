@@ -7,7 +7,7 @@
             <i class="search_i iconfont icon-sousuo"></i>
             <span class="search_s">搜索商品, 共19914款好物</span>
           </div>
-          <div class="login">登录</div>
+          <div class="login" @click="$router.replace('/personage')">登录</div>
         </div>
         <div class="msite_nav">
           <div class="list_tab">
@@ -22,115 +22,116 @@
       </div>
 
       <div class="msite_content">
-        <slide-image></slide-image>
+    <slide-image></slide-image>
 
-        <div class="indexServicePolicy ">
-          <div>
-            <i class="iconfont icon-denglu"></i>
-            <span class="indexServicePolicy_text">
+    <div class="indexServicePolicy ">
+      <div>
+        <i class="iconfont icon-denglu"></i>
+        <span class="indexServicePolicy_text">
                   网易自营品牌
               </span>
-          </div>
-          <div>
-            <i class="iconfont icon-denglu"></i>
-            <span class="indexServicePolicy_text">
+      </div>
+      <div>
+        <i class="iconfont icon-denglu"></i>
+        <span class="indexServicePolicy_text">
                   网易自营品牌
               </span>
-          </div>
-          <div>
-            <i class="iconfont icon-denglu"></i>
-            <span class="indexServicePolicy_text">
+      </div>
+      <div>
+        <i class="iconfont icon-denglu"></i>
+        <span class="indexServicePolicy_text">
                   网易自营品牌
               </span>
-          </div>
+      </div>
+    </div>
+    <div class="shop_list">
+      <div class="shop_item" v-for="(item,index) in kingKong" :key="index">
+        <div><img :src="item.picUrl" alt=""></div>
+        <span>{{item.text}}</span>
+      </div>
+    </div>
+    <split/>
+    <div class="freshmanModule ">
+      <div class="text">- 新人专享礼 -</div>
+      <div class="right_left_div">
+        <div class="left_div top_de">
+          <img src="http://yanxuan.nosdn.127.net/13ae17d083a2328d4a0016ebe232a57b.png" alt="">
+          <p class="text_top">福利社</p>
+          <p class="text_b">今日特价</p>
         </div>
-        <div class="shop_list">
-          <div class="shop_item" v-for="(item,index) in kingKong" :key="index">
-            <div><img :src="item.picUrl" alt=""></div>
-            <span>{{item.text}}</span>
-          </div>
-        </div>
-        <split/>
-        <div class="freshmanModule ">
-          <div class="text">- 新人专享礼 -</div>
-          <div class="right_left_div">
-            <div class="left_div top_de">
-              <img src="http://yanxuan.nosdn.127.net/13ae17d083a2328d4a0016ebe232a57b.png" alt="">
-              <p class="text_top">福利社</p>
-              <p class="text_b">今日特价</p>
-            </div>
-            <div class="left_div">
-              <img src="http://yanxuan.nosdn.127.net/589f0990b8ba1d354a698731afacd2d4.png" alt="">
-              <div class="text_top">新人拼团</div>
-              <div class="text_b">1元起包邮</div>
-            </div>
-          </div>
-          <div class="right_div">
-            <p>新人专礼</p>
-            <img src="//yanxuan.nosdn.127.net/d074d02fb86bff9bfbf4fa3010d1e1e6.png" alt="">
-          </div>
-        </div>
-        <split/>
-        <div class="direct_supply">
-          <div class="text_top">
-            <span>品牌制造商直供</span>
-            <i>更多 ></i>
-          </div>
-          <div class="top_wor">
-            <div class="left_shop">
-              <p class="top_p">海外制造商</p>
-              <p class="next_p"> 9.9元起 <span>上新</span></p>
-            </div>
-            <div class="right_shop">
-              <p class="top_p">海外制造商</p>
-              <p class="next_p">9.9元起 <span>上新</span></p>
-            </div>
-          </div>
-          <div class="top_wor">
-            <div class="left_shop">
-              <p class="top_p">海外制造商</p>
-              <p class="next_p"> 9.9元起 <span>上新</span></p>
-            </div>
-            <div class="right_shop">
-              <p class="top_p">海外制造商</p>
-              <p class="next_p">9.9元起 <span>上新</span></p>
-            </div>
-          </div>
-        </div>
-        <split/>
-
-        <div class=" singles_sales">
-          <p>类目热销榜</p>
-          <div class="shop_item_list">
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-          </div>
-          <div class="shop_item_top">
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-            <div class="shop_item">
-              <p class="text">服装榜</p>
-              <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
-            </div>
-          </div>
+        <div class="left_div">
+          <img src="http://yanxuan.nosdn.127.net/589f0990b8ba1d354a698731afacd2d4.png" alt="">
+          <div class="text_top">新人拼团</div>
+          <div class="text_b">1元起包邮</div>
         </div>
       </div>
+      <div class="right_div">
+        <p>新人专礼</p>
+        <img src="//yanxuan.nosdn.127.net/d074d02fb86bff9bfbf4fa3010d1e1e6.png" alt="">
+      </div>
+    </div>
+    <split/>
+    <div class="direct_supply">
+      <div class="text_top">
+        <span>品牌制造商直供</span>
+        <i>更多 ></i>
+      </div>
+      <div class="top_wor">
+        <div class="left_shop">
+          <p class="top_p">海外制造商</p>
+          <p class="next_p"> 9.9元起 <span>上新</span></p>
+        </div>
+        <div class="right_shop">
+          <p class="top_p">海外制造商</p>
+          <p class="next_p">9.9元起 <span>上新</span></p>
+        </div>
+      </div>
+      <div class="top_wor">
+        <div class="left_shop">
+          <p class="top_p">海外制造商</p>
+          <p class="next_p"> 9.9元起 <span>上新</span></p>
+        </div>
+        <div class="right_shop">
+          <p class="top_p">海外制造商</p>
+          <p class="next_p">9.9元起 <span>上新</span></p>
+        </div>
+      </div>
+    </div>
+    <split/>
+
+    <div class=" singles_sales">
+      <p>类目热销榜</p>
+      <div class="shop_item_list">
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+      </div>
+      <div class="shop_item_top">
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+        <div class="shop_item">
+          <p class="text">服装榜</p>
+          <img src="http://yanxuan.nosdn.127.net/e7b3e95a03560f65fee9da6f8dd8ebde.png?imageView&quality=65&thumbnail=200x200" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
     </div>
 </template>
 
@@ -179,6 +180,7 @@
     width 100%
     padding-top 1.66rem
     .hander_wrap
+      z-index 1000
       background-color: rgb(204, 204, 204)
       width: 100%
       position fixed
@@ -186,7 +188,7 @@
       left:0
       .msite_header
         position: relative
-        z-index: 2
+        z-index: 500
         display: flex
         flex-flow: row nowrap
         adivgn-items: center
@@ -261,13 +263,10 @@
               width: .87rem
               height: .03333rem
               background-color: #b4282d
-
-
       .toggle
         position: absolute
         right: .5rem
         top: 1.13rem
-
     .msite_content
       width 100%
       margin-bottom 50px

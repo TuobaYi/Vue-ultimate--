@@ -7,7 +7,10 @@
 
 <script>
   //import './mock/mockjs';
+  import { Button } from 'mint-ui';
+  import Vue from 'vue'
   import FooterGitde from './components/FooterGitde/FooterGitde'
+  Vue.component(Button.name, Button);
   export default {
     name: 'App',
     components:{

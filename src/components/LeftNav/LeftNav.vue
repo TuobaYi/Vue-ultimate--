@@ -53,7 +53,7 @@
       position relative
       width 1.62rem
       height 11.45rem
-      background-color lightpink
+      //background-color lightpink
       overflow hidden
       .nav_list
         width 100%

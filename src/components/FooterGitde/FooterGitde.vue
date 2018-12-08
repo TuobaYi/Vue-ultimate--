@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer_guide border-1px">
+  <footer v-if="$route.path!=='/personage'" class="footer_guide border-1px">
     <!--:class="{on:$route.path==='/msite'}" @click="handleSkip('/msite')"-->
     <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/msite'}"@click="handleSkip('/msite')">
       <span class="item_icon">

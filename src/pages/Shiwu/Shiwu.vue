@@ -15,56 +15,73 @@
           </div>
         </div>
         <div class="nav_top">
-          <div >
-            <span class="active">推荐</span>
-          </div>
-          <div>
-            <span>达人</span>
-          </div>
-          <div>
-            <span>上新</span>
-          </div>
-          <div>
-            <span>晒单</span>
-          </div>
-          <div>
-            <span>HOME</span>
+          <div v-for="(item) in shiwuNav" :key="item.tabId" @click="handleNav(item.tabId)">
+            <span :class="{activesss:item.tabId === isTabId}">{{item.tabName}}</span>
           </div>
 
         </div>
       </div>
-      <Split/>
-      <div class="shop_logo">
-        <img src="./image1.jpg" alt="">
-      </div>
-      <Split/>
-      <div class="right_wrap">
-        <div class="item_wrap">
-          <div class="item_content">
-            <div class="one_text">
-              <span class="ava">
-                <img src="./image1.jpg" alt="">
-              </span>
-              <span></span>
-            </div>
-            <div class="two_text"></div>
-            <div class="three_text"></div>
-            <div class="four_text"></div>
+
+      <div v-for="(item,index) in shiwu" :key="index">
+        <div v-if="item.ad">
+          {{}}
+          <div  class="shop_logo">
+            <img :src="item.ad.picUrl" alt="">
           </div>
-          <div class="right_img">
-            <img src="./image1.jpg" alt="">
-          </div>
+          <Split/>
         </div>
+        <div v-if="item.type===2 || item.type===1">  <!--//左右 结构-->
+          <left-right-shop :item="item"></left-right-shop>
+          <Split/>
+        </div>
+        <div v-if="item.type===0"> <!--//上下 结构-->
+        <up-and-shop :item="item"></up-and-shop>
+        <Split/>
+      </div>
       </div>
     </div>
 </template>
 
 <script>
   import Split from '../../components/Split/Split'
+  import upAndShop from '../../components/upAndShop/upAndShop'
+  import LeftRightShop from '../../components/LeftRightShop/LeftRightShop'
+  import {mapState} from 'vuex'
   export default {
     name: 'Shiwu',
+    data(){
+      return {
+        isTabId:null
+      }
+    },
+    computed:{
+      ...mapState(['shiwu','shiwuNav']),
+    },
+    methods:{
+      handleNav(tabId){
+        if(tabId === 4){
+          this.$store.dispatch('getDaRen') //达人
+        }
+        if (tabId === 9){
+          this.$store.dispatch('getRecommend') //推荐
+        }
+        this.isTabId=tabId
+      }
+    },
+    mounted(){
+      //this.$store.dispatch('getDaRen') //达人
+      this.$store.dispatch('getRecommend') //推荐
+      this.$store.dispatch('getShiwuNav') //导航
+    },
+    watch:{
+      shiwuNav(){
+        this.isTabId = this.shiwuNav[0].tabId  //默认 显示选中 第一个 的标识
+      }
+    },
     components:{
-      Split
+      Split,
+      upAndShop,
+      LeftRightShop
     }
   }
 </script>
@@ -73,6 +90,7 @@
   @import '../../common/stylus/minixs.styl'
   .shiwu_wrap
     width 100%
+    height auto
     padding-top 1.71rem
     .hender_title
       width 100%
@@ -107,19 +125,18 @@
         background-color #fafafa
         div
           position relative
-        &.active
-          position relative
-          color #b4282d
-        &.active:after
-          content: ' '
-          position: absolute
-          left  0
-          right 0
-          bottom: -.3rem
-          margin 0 auto
-          width: .555rem
-          height: .03333rem
-          background-color: #b4282d
+          .activesss
+            color #b4282d
+          .activesss:after
+            content: ' '
+            position: absolute
+            left  0
+            right 0
+            bottom -.18rem
+            margin 0 auto
+            width: 110%
+            height: .03333rem
+            background-color: #b4282d
     .shop_logo
       width 100%
       background: #fff
@@ -128,37 +145,6 @@
       padding .3rem .36rem
       img
         width 6.85rem
+        height 100%
 
-    .right_wrap
-      width 100%
-      background: #fff
-      padding .32rem .3rem
-      box-sizing border-box
-      .item_wrap
-        width 100%
-        height 2.72rem
-        background-color pink
-        display flex
-        justify-content space-between
-        .item_content
-          width 3.8rem
-          height 2.7rem
-          background-color #4cd96f
-          .one_text
-            height .56rem
-            .ava
-              width .6rem
-              height .6rem
-              display inline-block
-              border-radius 50%
-              overflow hidden
-              img
-                width 100%
-                height 100%
-        .right_img
-          width 2.7rem
-          height 2.7rem
-          img
-            width 100%
-            height 100%
 </style>

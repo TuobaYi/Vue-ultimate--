@@ -2,7 +2,15 @@
   <div class="wrap" v-if="selectItem">
     <div class="right_content">
       <div class="top_title":style="{backgroundImage:`url(${selectItem.bannerUrl})`}"></div>
-      <ul class="down_content">
+      <ul v-if="true" class="down_content">
+        <li class="content_item" v-for="(item,index) in selectItem.subCateList" :key="index">
+          <div class="img_shop">
+            <img :src="item.bannerUrl" alt="">
+          </div>
+          <span>{{item.name}}</span>
+        </li>
+      </ul>
+      <ul v-else class="down_content">
         <li class="content_item" v-for="(item,index) in selectItem.subCateList" :key="index">
           <div class="img_shop">
             <img :src="item.bannerUrl" alt="">
