@@ -6,6 +6,9 @@ import {
   reqRecommend,
   reqShiwuNav,
   reqDaRen,
+  reqUser,
+  reqSearchInit,
+  reqSearchResult
 } from '../api'
 
 import {
@@ -14,7 +17,10 @@ import {
   RECEIVE_KING_KONG,
   RECEIVE_CATEGORY_LIST,
   RECEIVE_SHIWU,
-  RECEIVE_SHIWU_NAV
+  RECEIVE_SHIWU_NAV,
+  RECEIVE_USER,
+  RECEIVE_SEARCH_INIT,
+  RECEIVE_SEARCH_RESULT
 } from './mutations-type'
 const actions={
   async getMsiteNav(store){
@@ -86,5 +92,43 @@ const actions={
       store.commit(RECEIVE_SHIWU_NAV,data)
     }
   },// 第三页 导航
+
+  saveUser({commit}, user) {
+    commit(RECEIVE_USER, {user})
+  },//更新user数据
+  async logout({commit}){
+    const result = await reqLogout()
+    if (result.code === 0) {
+      let user={}
+      commit(RECEIVE_USER, {user})
+    }
+  },//登出
+  async getUser({commit}){
+    const result = await reqUser()
+    if (result.code === 0) {
+      let user =result.data
+      commit(RECEIVE_USER, {user})
+    }
+  },//自动登录
+
+  async getSearchInit({commit}){ //搜索  初始化数据
+    const result= await reqSearchInit()
+    console.log(result)
+    if (result.code === '200') {
+      const {data} = result
+      commit(RECEIVE_SEARCH_INIT,data)
+    }
+  }, //搜索 初始数据
+  async getSearchResult({commit}, {keywordPrefix}){ // 搜索 内容
+    const result = await reqSearchResult({keywordPrefix})
+    if (result.code === '200') {
+      const {data} = result
+      commit(RECEIVE_SEARCH_RESULT,data)
+    }
+  },
+  resetSearchResult({commit}){
+    let data=[]
+    commit(RECEIVE_SEARCH_RESULT,data)
+  }
 }
 export default actions

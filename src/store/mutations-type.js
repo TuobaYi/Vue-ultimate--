@@ -6,3 +6,8 @@ export const RECEIVE_CATEGORY_LIST = 'receive_category_list'//分类页  所有�
 export const RECEIVE_SHIWU = 'receive_shiwu' //第三页 当前列表数据
 export const RECEIVE_SHIWU_NAV = 'receive_shiwu_nav' //第三页 导航
 
+export const RECEIVE_USER = 'receive_user' //user 更新
+
+export const RECEIVE_SEARCH_INIT= 'receive_search_init' //获取 搜索 状态
+export const RECEIVE_SEARCH_RESULT= 'receive_search_result' // 搜索 结果
+

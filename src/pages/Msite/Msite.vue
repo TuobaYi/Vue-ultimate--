@@ -3,7 +3,7 @@
       <div class="hander_wrap">
         <div class="msite_header">
           <span class="logo"></span>
-          <div class="search">
+          <div class="search" @click="$router.push('/search')">
             <i class="search_i iconfont icon-sousuo"></i>
             <span class="search_s">搜索商品, 共19914款好物</span>
           </div>

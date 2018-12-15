@@ -1,191 +1,262 @@
 <template>
-    <div class="login_wrap">
-      <div class="hender_title">
-        <div class="header_wrap">
-          <div class="left_home">
-            <span class="iconfont icon-navhomeicon" @click="$router.replace('/msite')"></span>
-          </div>
-          <div class="centre_text">
-          </div>
-          <div class="right_skip">
-            <span class="iconfont iconfont icon-sousuo" style="marginRight:.25rem"></span>
-            <span class="iconfont icon-qicheqianlian-1-copy" @click="$router.replace('/shop-cart')"></span>
-          </div>
+  <section class="profile">
+    <section class="profile-number" @click="$router.push('/login')">
+      <a href="javascript:" class="profile-link">
+        <div class="profile_image">
+          <i class="iconfont icon-person"></i>
         </div>
-      </div>
-      <div class="content_d" :class="{isSelect:loginType!==1 }">
-        <div class="one_d"></div>
-        <div class="tor_d">
-          <div class="data_input" v-if="loginType!==1">
-            <div class="top_data">
-              <input v-model="dataTop" type="text" :placeholder="loginType==2?'请输入手机号':'请输入账号'">
-            </div>
-            <div class="xia_data">
-              <input v-model="dataX" :type="loginType===3?'password':'text'" :placeholder="loginType==2?'请输入验证码':'请输入密码'">
-            </div>
-            <div class="auth_code">
-              <button :disabled="computeTime>0 || loginType !== 2" class="get_verification" :class="{right_phone_number:loginType===2}"
-                      @click.prevent="handleVerification"
-              >{{computeTime?`已发送${computeTime}`:"获取验证码"}}</button>
-            </div>
-          </div>
-          <div class="top_btn" :class="{isSelect:loginType!==1 }" @click="handleShow(2)">
-            <span></span>
-            <span>{{loginType ===1 ?'手 机 号 码 登 录':'登 录'}}</span>
-          </div>
-          <div v-if="loginType===1" class="xia_btn" @click="handleShow(3)">
-            <span></span>
-            <span>{{loginType ===1 ? '邮 箱 账 号 登 录': "其 他 登 录 方 式"}}</span>
-          </div>
-          <div v-if="loginType===3||loginType===2" class="xia_btn" @click="handleShow(1)">
-            <span></span>
-            <span>{{loginType ===1 ? '邮 箱 账 号 登 录': "其 他 登 录 方 式"}}</span>
-          </div>
-          <div>手机号快捷注册></div>
+        <div class="user-info">
+          <p class="user-info-top" v-if="!user.phone">
+            {{user.name ? user.name : '登录/注册'}}
+          </p>
+          <p v-if="!user.name">
+            <span class="user-icon">
+              <i class="iconfont icon-shouji icon-mobile"></i>
+            </span>
+            <span class="icon-mobile-number">
+              {{user.phone ? user.phone : '暂无绑定手机号'}}
+            </span>
+          </p>
         </div>
-        <div v-if="loginType===1" class="tre_d">
-          <span>微信</span> |
-          <span>QQ</span> |
-          <span>微博</span> |
+        <span class="arrow">
+              <i class="iconfont icon-jiantou1"></i>
+            </span>
+      </a>
+    </section>
+    <section class="profile_info_data border-1px">
+      <ul class="info_data_list">
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0.00</span>元</span>
+          <span class="info_data_bottom">我的余额</span>
+        </a>
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0</span>个</span>
+          <span class="info_data_bottom">我的优惠</span>
+        </a>
+        <a href="javascript:" class="info_data_link">
+          <span class="info_data_top"><span>0</span>分</span>
+          <span class="info_data_bottom">我的积分</span>
+        </a>
+      </ul>
+    </section>
+    <section class="profile_my_order border-1px">
+      <!-- 我的订单 -->
+      <a href='javascript:' class="my_order">
+            <span>
+              <i class="iconfont icon-order-s"></i>
+            </span>
+        <div class="my_order_div">
+          <span>我的订单</span>
+          <span class="my_order_icon">
+                <i class="iconfont icon-jiantou1"></i>
+              </span>
         </div>
-        <div></div>
-      </div>
-    </div>
+      </a>
+      <!-- 积分商城 -->
+      <a href='javascript:' class="my_order">
+            <span>
+              <i class="iconfont icon-jifen"></i>
+            </span>
+        <div class="my_order_div">
+          <span>积分商城</span>
+          <span class="my_order_icon">
+                <i class="iconfont icon-jiantou1"></i>
+              </span>
+        </div>
+      </a>
+      <!-- 硅谷外卖会员卡 -->
+      <a href="javascript:" class="my_order">
+            <span>
+              <i class="iconfont icon-vip"></i>
+            </span>
+        <div class="my_order_div">
+          <span>硅谷外卖会员卡</span>
+          <span class="my_order_icon">
+                <i class="iconfont icon-jiantou1"></i>
+              </span>
+        </div>
+      </a>
+    </section>
+    <section class="profile_my_order border-1px">
+      <!-- 服务中心 -->
+      <a href="javascript:" class="my_order">
+            <span>
+              <i class="iconfont icon-fuwu"></i>
+            </span>
+        <div class="my_order_div">
+          <span>服务中心</span>
+          <span class="my_order_icon">
+                <i class="iconfont icon-jiantou1"></i>
+              </span>
+        </div>
+      </a>
+    </section>
+    <section class="profile_my_order border-1px" v-if="user._id">
+      <mt-button type="danger" style="width: 100%" @click="logout">退出登陆</mt-button>
+    </section>
+  </section>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import { Toast,MessageBox } from 'mint-ui';
   export default {
     name: 'Personage',
-    data(){
-      return {
-        loginType:1, //当  1 代表其它登录, 2 短信 , 3 账号
-        dataTop: '', // 手机号 || 用户名
-        dataX: '', // 短信验证码 || 密码
-        computeTime:0,//定义一个倒计时
+    computed: {
+      ...mapState(['user'])
+    },
+    methods: {
+      logout () {
+        MessageBox.confirm('确定要退出吗?').then(
+          action => {
+            console.log('++++', action)
+            // 发送登出的请求
+            this.$store.dispatch('logout')
+          },
+          action => {
+            console.log('---', action)
+          },
+        )
       }
     },
-    methods:{
-      handleShow(type){
-        console.log(type)
-        this.loginType=type
-      },//处理登录
+    mounted(){
 
-      async handleVerification(){
-        this.computeTime=5;
-        let timeId = setInterval(()=>{
-          this.computeTime--;
-          if (!this.computeTime)clearInterval(timeId)
-        },1000)
-        if (this.isRightPhone){
-          const result = await reqSmsCode(this.phone);
-          if (result.code != 0) {
-            Toast('获取验证码失败!!');
-          }
-        }
-      },//手机 获取验证码 的处理
-    },
+    }
   }
 </script>
 
 <style scoped lang="stylus">
   @import '../../common/stylus/minixs.styl'
-  .login_wrap
+  .profile //我的
     width 100%
     overflow hidden
-    .content_d
-      width 100%
-      height 12.3rem
-      background-color rgb(242, 245, 244)
-      display flex
-      flex-direction column
-      justify-content space-between
-      align-items center
-      &.isSelect
-        background-color rgb(255, 255, 255)
-      .one_d
-        margin-top 1.6rem
-        width 2.6666rem
-        height .9rem
-        background-image url("//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png")
-        background-size 100% 100%
-      .tor_d
-        width 6.66rem
-        height 2.85rem
-        text-align center
-        div
-          width 100%
-          height .88rem
-          font-size .26rem
-        .top_btn
-          background-color rgb(180, 40, 45)
-          line-height .88rem
-          margin-bottom .3rem
-          color rgb(255, 255, 255)
-          &.isSelect
-            color #f2f5f4
-        .xia_btn
-          line-height .88rem
-          margin-bottom .3rem
-          color rgb(180, 40, 45)
-          border 1px solid rgb(180, 40, 45)
-      .tre_d
-        width 60%
-        height .399999rem
-        text-align center
-        color rgb(127, 127, 127)
-        display flex
-        justify-content space-around
-      .data_input
-        width 100%
-        margin-bottom .95rem
+    .profile-number
+      margin-top 0
+      .profile-link
+        clearFix()
         position relative
-        top -50%
-        div
-          height auto
-          bottom-border-1px(#7f7f7f)
-        input
-          width 100%
-          height .9rem
-          outline none
-          border none
-          font-size .5rem
-        .auth_code
-          position relative
-          top -50%
-          left 30%
-          .get_verification
-            transform translateY(-50%)
-            border 0
-            color #ccc
-            font-size 14px
-            background transparent
-            &.right_phone_number
-              color: #000
-        .auth_code::after
-          height 0
-    .header_wrap
-      bottom-border-1px(#7F7F7F)
-      height 1rem
+        display block
+        background #02a774
+        padding 20px 10px
+        .profile_image
+          float left
+          width 60px
+          height 60px
+          border-radius 50%
+          overflow hidden
+          vertical-align top
+          .icon-person
+            background #e4e4e4
+            font-size 62px
+        .user-info
+          float left
+          margin-top 8px
+          margin-left 15px
+          p
+            font-weight: 700
+            font-size 18px
+            color #fff
+            &.user-info-top
+              padding-bottom 8px
+            .user-icon
+              display inline-block
+              margin-left -15px
+              margin-right 5px
+              width 20px
+              height 20px
+              .icon-mobile
+                font-size 30px
+                vertical-align text-top
+            .icon-mobile-number
+              font-size 14px
+              color #fff
+        .arrow
+          width 12px
+          height 12px
+          position absolute
+          right 15px
+          top 40%
+          .icon-jiantou1
+            color #fff
+            font-size 5px
+    .profile_info_data
+      bottom-border-1px(#e4e4e4)
       width 100%
-      background-color rgb(250, 250, 250)
-      display flex
-      justify-content space-between
-      align-items center
-      padding 0 .24rem
-      box-sizing border-box
-      color  #7F7F7F
-      .centre_text
-        width 1.65rem
-        height .5rem
-        background-image: url(./images/logo.png)
-        background-size 100% 100%
-      .actives
-        color: #b4282d
-        font-size .4rem
-        font-weight bold
-      .iconfont
-        font-size 25px
-
+      background #fff
+      overflow hidden
+      .info_data_list
+        clearFix()
+        .info_data_link
+          float left
+          width 33%
+          text-align center
+          border-right 1px solid #f1f1f1
+          .info_data_top
+            display block
+            width 100%
+            font-size 14px
+            color #333
+            padding 15px 5px 10px
+            span
+              display inline-block
+              font-size 30px
+              color #f90
+              font-weight 700
+              line-height 30px
+          .info_data_bottom
+            display inline-block
+            font-size 14px
+            color #666
+            font-weight 400
+            padding-bottom 10px
+        .info_data_link:nth-of-type(2)
+          .info_data_top
+            span
+              color #ff5f3e
+        .info_data_link:nth-of-type(3)
+          border 0
+          .info_data_top
+            span
+              color #6ac20b
+    .profile_my_order
+      top-border-1px(#e4e4e4)
+      margin-top 10px
+      background #fff
+      .my_order
+        display flex
+        align-items center
+        padding-left 15px
+        >span
+          display flex
+          align-items center
+          width 20px
+          height 20px
+          >.iconfont
+            margin-left -10px
+            font-size 30px
+          .icon-order-s
+            color #02a774
+          .icon-jifen
+            color #ff5f3e
+          .icon-vip
+            color #f90
+          .icon-fuwu
+            color #02a774
+        .my_order_div
+          width 100%
+          border-bottom 1px solid #f1f1f1
+          padding 18px 10px 18px 0
+          font-size 16px
+          color #333
+          display flex
+          justify-content space-between
+          span
+            display block
+          .my_order_icon
+            width 10px
+            height 10px
+            .icon-jiantou1
+              color #bbb
+              font-size 10px
 
 </style>

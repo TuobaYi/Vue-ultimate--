@@ -1,5 +1,5 @@
 <template>
-  <footer v-if="$route.path!=='/personage'" class="footer_guide border-1px">
+  <footer v-if="isShow" class="footer_guide border-1px">
     <!--:class="{on:$route.path==='/msite'}" @click="handleSkip('/msite')"-->
     <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/msite'}"@click="handleSkip('/msite')">
       <span class="item_icon">
@@ -36,6 +36,12 @@
 <script>
   export default {
     name: 'FooterGitde',
+    computed:{
+      isShow(){
+        const {path} =this.$route
+        return (path!=='/login'&& path!=='/personage')
+      }
+    },
     methods:{
       handleSkip(path){
         this.$router.replace(path)

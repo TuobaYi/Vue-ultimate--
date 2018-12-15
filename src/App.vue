@@ -13,6 +13,10 @@
   Vue.component(Button.name, Button);
   export default {
     name: 'App',
+    async mounted () {
+      // 异步获取当前用户信息
+      this.$store.dispatch('getUser')
+    },
     components:{
       FooterGitde
     }
